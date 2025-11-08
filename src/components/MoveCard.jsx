@@ -1,3 +1,5 @@
+import "../css/MovieCard.css";
+
 const MoveCard = ({ movie }) => {
   const handleClick = () => {
     console.log("Favorite button clicked!");

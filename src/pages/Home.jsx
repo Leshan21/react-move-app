@@ -1,5 +1,6 @@
 import MoveCard from "../components/MoveCard";
 import { useState } from "react";
+import "../css/Home.css";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
