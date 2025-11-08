@@ -11,7 +11,11 @@ const Home = () => {
     { id: 4, title: "Tenet", release_date: "2020" },
   ];
 
-  const handleSearch = () => {console.log("Searching for:", searchQuery)};
+  const handleSearch = (e) => {
+    e.preventDefault()
+    alert(searchQuery);
+  };
+
   return (
     <div className="home">
       <form onSubmit={handleSearch} className="search-form">
