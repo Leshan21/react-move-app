@@ -23,7 +23,6 @@ export const searchMovies = async (query) => {
         query
       )}`
     );
-    console.log(apiKey)
     const data = await response.json();
     return data.results;
   } catch (error) {
