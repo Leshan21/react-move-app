@@ -1,13 +1,14 @@
 
 
 const BASE_URL = "https://api.themoviedb.org/3";
-const apiKey = import.meta.env.MOVIE_API_KEY; // Accessing the API key from environment variables. we can not use doten v in vite
-
+const apiKey = import.meta.env.VITE_MOVIE_API_KEY; // Accessing the API key from environment variables. we can not use doten v in vite also
+// we want to use VITE_ start the naming the variables
 export const getPopularMovies = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/movie/popular?api_key=520bb8edc1fc60fd5992e6c44846b1ac`);
+    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${apiKey}`);
     const data = await response.json();
-    console.log(data);
+    console.log(import.meta.env.VITE_MOVIE_API_KEY);
+
     return data.results;
   } catch (error) {
     console.error("Error fetching popular movies:", error);
@@ -22,6 +23,7 @@ export const searchMovies = async (query) => {
         query
       )}`
     );
+    console.log(apiKey)
     const data = await response.json();
     return data.results;
   } catch (error) {

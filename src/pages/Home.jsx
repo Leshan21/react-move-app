@@ -1,6 +1,6 @@
 import MoveCard from "../components/MoveCard";
 import { useState, useEffect } from "react";
-import { getPopularMovies } from "../services/api"; // Import API functions
+import { getPopularMovies, searchMovies } from "../services/api"; // Import API functions
 import "../css/Home.css";
 
 const Home = () => {
@@ -26,10 +26,24 @@ const Home = () => {
     fetchMovies();
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault(); // Prevent page reload on form submit
-    alert(searchQuery); // Display the search query in an alert
-    setSearchQuery(""); // Clear the input field after search
+
+    if(!searchQuery.trim()) return; // Ignore empty searches
+    if(loading) return; // Prevent multiple searches while loading
+
+    setLoading(true); // Indicate loading state
+
+    try {
+        const searchResults = await searchMovies(searchQuery); // Fetch search results
+        setMovies(searchResults); // Update movies with search results
+        setError(null); // Clear any previous errors
+    } catch (error) {
+        setError("Failed to search movies. Please try again later.");
+        console.log(error);
+    } finally {
+        setLoading(false); // Reset loading state
+    }
   };
 
   return (
