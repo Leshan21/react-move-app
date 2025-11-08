@@ -12,8 +12,9 @@ const Home = () => {
   ];
 
   const handleSearch = (e) => {
-    e.preventDefault()
-    alert(searchQuery);
+    e.preventDefault()  // Prevent page reload on form submit
+    alert(searchQuery); // Display the search query in an alert
+    setSearchQuery(""); // Clear the input field after search
   };
 
   return (
