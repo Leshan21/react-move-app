@@ -11,7 +11,7 @@ const Home = () => {
     { id: 4, title: "Tenet", release_date: "2020" },
   ];
 
-  const handleSearch = () => {};
+  const handleSearch = () => {console.log("Searching for:", searchQuery)};
   return (
     <div className="home">
       <form onSubmit={handleSearch} className="search-form">
@@ -21,7 +21,7 @@ const Home = () => {
           className="search-input"
           value={searchQuery}
           onChange={(e) => {
-            searchQuery(e.target.value);
+            setSearchQuery(e.target.value);
           }}
         />
         <button type="submit" className="search-button">
