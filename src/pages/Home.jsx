@@ -12,10 +12,11 @@ const Home = () => {
   ];
 
   const handleSearch = (e) => {
-    e.preventDefault()  // Prevent page reload on form submit
+    e.preventDefault(); // Prevent page reload on form submit
     alert(searchQuery); // Display the search query in an alert
     setSearchQuery(""); // Clear the input field after search
   };
+
 
   return (
     <div className="home">
@@ -34,9 +35,12 @@ const Home = () => {
         </button>
       </form>
       <div className="movies-grid">
-        {movies.map((movie) => (
-          <MoveCard movie={movie} key={movie.id} />
-        ))}{" "}
+        {movies.map(
+          (movie) =>
+            movie.title.toLowerCase().startsWith(searchQuery) && (
+              <MoveCard movie={movie} key={movie.id} />
+            )
+        )}
         {/*  Render MoveCard for each movie */}
       </div>
     </div>
