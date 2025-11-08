@@ -6,7 +6,7 @@ const MoveCard = ({ movie }) => {
   return (
     <div className="movie-card">
         <div className="movie-poster">
-            <img src={movie.url} alt={movie.title} /> // Movie Poster
+            <img src={movie.url} alt={movie.title} />   {/*Movie Post*/}
             <div className="movie-overlay">
             <button className="favorite-btn" onClick={handleClick}>
             Click

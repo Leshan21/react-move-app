@@ -1,14 +1,9 @@
-import MoveCard from "./components/MoveCard";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <>
-      <MoveCard
-        movie={{
-          title: "title here",
-          release_date: "2024-09-10",
-        }}
-      />
+      <Home />
     </>
   );
 }
