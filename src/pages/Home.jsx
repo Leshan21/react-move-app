@@ -1,23 +1,36 @@
 import MoveCard from "../components/MoveCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getPopularMovies } from "../services/api"; // Import API functions
 import "../css/Home.css";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [movies, setMovies] = useState([]); // State to hold the list of movies
+  const [error, setError] = useState(null); // State to hold any error message
+  const [loading, setLoading] = useState(false); // State to indicate loading status
 
-  const movies = [
-    { id: 1, title: "Inception", release_date: "2015" },
-    { id: 2, title: "Interstellar", release_date: "2014" },
-    { id: 3, title: "The Dark Knight", release_date: "2008" },
-    { id: 4, title: "Tenet", release_date: "2020" },
-  ];
+  useEffect(() => {
+    const fetchMovies = async () => {
+      setLoading(true);
+      try {
+        const popularMovies = await getPopularMovies();
+        setMovies(popularMovies);
+      } catch (error) {
+        console.log(error);
+        setError("Failed to fetch movies. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMovies();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault(); // Prevent page reload on form submit
     alert(searchQuery); // Display the search query in an alert
     setSearchQuery(""); // Clear the input field after search
   };
-
 
   return (
     <div className="home">
@@ -35,13 +48,12 @@ const Home = () => {
           Search
         </button>
       </form>
+      {loading && <div className="loading">Loading...</div>}
+      {error && <div className="error">{error}</div>}
       <div className="movies-grid">
-        {movies.map(
-          (movie) =>
-            (
-              <MoveCard movie={movie} key={movie.id} />
-            )
-        )}
+        {movies.map((movie) => (
+          <MoveCard movie={movie} key={movie.id} />
+        ))}
         {/*  Render MoveCard for each movie */}
       </div>
     </div>

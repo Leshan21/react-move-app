@@ -1,17 +1,31 @@
-import dotenv from 'dotenv';
-dotenv.config();
 
-BASE_URL = 'https://api.themoviedb.org/3';
 
-export const getPopulerMovies = async () => {
-    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${process.env.MOVE_API_KEY}&language=en-US&page=1`); // Fetch popular movies
-    const data = await response.json(); // Parse the JSON response 
-    return data.results; // Return the array of popular movies
-}
+const BASE_URL = "https://api.themoviedb.org/3";
+const apiKey = import.meta.env.MOVIE_API_KEY; // Accessing the API key from environment variables. we can not use doten v in vite
 
+export const getPopularMovies = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/movie/popular?api_key=520bb8edc1fc60fd5992e6c44846b1ac`);
+    const data = await response.json();
+    console.log(data);
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching popular movies:", error);
+    return [];
+  }
+};
 
 export const searchMovies = async (query) => {
-  const response = await fetch(`${BASE_URL}/search/movie?api_key=${process.env.MOVE_API_KEY}&query=${encodeURIComponent(query)}`) // Fetch search results
-  const data = await response.json(); // Parse the JSON response
-  return data.results; // Return the array of search results
-}
+  try {
+    const response = await fetch(
+      `${BASE_URL}/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
+        query
+      )}`
+    );
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error("Error searching movies:", error);
+    return [];
+  }
+};
